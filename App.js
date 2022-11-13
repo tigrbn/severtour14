@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Provider as PaperProvider } from 'react-native-paper';
-import * as Font from 'expo-font';
-import StartScreen from './screens/StartScreen';
-import MainScreen from './screens/MainScreen';
 import LoginScreen from './screens/LoginScreen';
+import * as Font from 'expo-font';
+import MainStack from './navigate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import RegisterScreen from './screens/RegisterScreen';
+import StartScreen from './screens/StartScreen';
+
 
 const Stack = createNativeStackNavigator()
 
@@ -30,18 +29,10 @@ export default function App() {
     return null;
   } else if (isFirstLaunch === true) {
     return (
-      <PaperProvider>
-        <NavigationContainer>
-          <Routes.Navigator>
-            <Routes.Screen name="Start" component={StartScreen} />
-            <Routes.Screen name="Login" component={LoginScreen} />
-            <Routes.Screen name="Register" component={RegisterScreen} />
-          </Routes.Navigator>
-      </NavigationContainer>
-      </PaperProvider>
+      <StartScreen/>
     );
   } else {
-      return <LoginScreen/>
+      return <MainStack/>
   }
 }
 

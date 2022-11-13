@@ -1,11 +1,18 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, 
+import { StyleSheet, SafeAreaView, Button,  
 Image, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-function LoginScreen ({ props }) {
-return (
+
+
+
+// function LoginScreen ()
+
+export default function LoginScreen( { navigation }) {
+  const loadScene = () => {
+    navigation.navigate('Register');
+  }
+    return (
 <SafeAreaView style={styles.LoginContainer}>
-    <View style={styles.LoginScrollView}>
+    <View>
         <View style={styles.LoginAuthCont}>
             <Text style={styles.LoginTitleText}>
             Авторизация {'\n'} </Text>
@@ -27,7 +34,7 @@ return (
         <Text style={styles.RegText}>
         У Вас нет аккаунта? {'\n'}
 Зарегистрируйтесь 
-<TouchableOpacity>
+<TouchableOpacity  onPress={loadScene}>
         <Text style={styles.BtnRegText}>
         здесь {'\n'} </Text>
         </TouchableOpacity>
@@ -49,7 +56,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#001B36',
     lineHeight: '27',
-    left: 45,
+    left: 40,
     top: '100%',
     fontFamily: 'mt-bold',
   },
@@ -87,7 +94,6 @@ const styles = StyleSheet.create({
   RegText: {
     color: '#001B36',
     textAlign: 'center',
-    textAlign: 'center',
     fontSize: 18,
     lineHeight: 22,
     top: '150%'
@@ -124,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen
+// export default LoginScreen

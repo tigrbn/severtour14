@@ -1,140 +1,138 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, 
-Image, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { StyleSheet, SafeAreaView, ScrollView, CheckBox,
+Image, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity,  } from 'react-native';
+import { auth } from '../firebase';
 
 
 
-function RegisterScreen ({ navigation }) {
-//     const navigation = useNavigation(); 
-//   const [phone, setPhone] = useState('')
+const RegisterScreen = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-//   const handleSignUp = () => {
-//     auth
-//     .createUserWithPhone(phone)
-//     .then(userCredentials => {
-//       const user = userCredentials.user;
-//       console.log(user.phone);
-//     })
-//     .catch(error => alert(error.message))
-//   }
+  const handleSignUp = () => {
+    auth 
+    .createUserWithEmailAndPassword(email, password)
+    .then(userCredentials => {
+      const user = userCredentials.user;
+      console.log(user.email);
+    })
+    .catch(error => alert(error.message))
+  }
+
 return (
-<SafeAreaView style={styles.LoginContainer}>
-    <View style={styles.LoginScrollView}>
-        <View style={styles.LoginAuthCont}>
-            <Text style={styles.LoginTitleText}>
-            Авторизация {'\n'} </Text>
+<SafeAreaView style={styles.RegContainer}>
+        <View style={styles.RegAuthCont}>
+        <Text style={styles.RegMainTitleText}>Регистрация  </Text>
         {/* <Image  style={styles.LoginImage} source={require('../assets/start_pic.png')} /> */}
         </View>
+        <ScrollView style={styles.RegScrollView}>
         <KeyboardAvoidingView style={styles.AuthContForm}>
         <View style={styles.LoginAuthContForm}>
-        <Text style={styles.LoginInfoText}> Войти по номеру {'\n'} телефона </Text>
-        <TextInput value={phone} onChangeText={text => setPhone(text)} placeholder='Введите номер телефона' style={styles.LoginPlaceholderText}/>
-            <Text style={styles.startTitleText}>
-          </Text>
+        <Text style={styles.RegTitleText}>Название организации</Text>
+        <TextInput placeholder='Введите название организации' style={styles.RegPlaceholderText}/>
+        <Text style={styles.RegTitleText}>Email</Text>
+        <TextInput value={email} onChangeText={text => setEmail(text)} placeholder='Введите электронную почту' style={styles.RegPlaceholderText}/>
+        <Text style={styles.RegTitleText}>Контактный телефон </Text>
+        <TextInput placeholder='Введите номер телефона' style={styles.RegPlaceholderText}/>
+        <Text style={styles.RegTitleText}>Пароль </Text>
+        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder='Ваш пароль, не менее 8 символов' style={styles.RegPlaceholderText}/>
+        <Text style={styles.RegTitleText}>Подтвердите пароль </Text>
+        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder='Повторите пароль' style={styles.RegPlaceholderText}/>
         </View>
         </KeyboardAvoidingView>
-        <TouchableOpacity style={styles.BtnLogin} onPress={(handleSignUp) => {}}>
-        <Text style={styles.BtnLoginText}>
-            Войти {'\n'} </Text>
-        </TouchableOpacity>
-        <View>
-        <Text style={styles.RegText}>
-        У Вас нет аккаунта? {'\n'}
-Зарегистрируйтесь 
-<TouchableOpacity  onPress={() => {}}>
-        <Text style={styles.BtnRegText}>
-        здесь {'\n'} </Text>
-        </TouchableOpacity>
- </Text>
-        <TouchableOpacity style={styles.BtnLogin} onPress={() => {}}>
-        <Text style={styles.BtnLoginText}>
-            Войти {'\n'} </Text>
+        <Text style={styles.RegInfoText}>Нажимая кнопку «Зарегистрироваться»:</Text>
+        <View style={styles.checkboxContainer}>
+        <Text style={styles.agreeText}>Вы принимаете условия {'\n'}
+Пользовательского соглашения {'\n'}
+и даю своё согласие на обработку моей персональной информации на условиях, определенных Политикой конфиденциальности.</Text>
+      </View>
+
+        <View style={styles.RegP5} >
+        <TouchableOpacity style={styles.RegR} onPress={handleSignUp}>
+        <Text style={styles.RegAuth}>
+            Зарегистрироваться </Text>
         </TouchableOpacity>
         </View>
-     </View>
+     </ScrollView>
 </SafeAreaView>
 )
 }
 
+
 const styles = StyleSheet.create({
-
-  LoginInfoText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#001B36',
-    lineHeight: '27',
-    left: 45,
-    top: '100%',
-    fontFamily: 'mt-bold',
-  },
-  LoginPlaceholderText: {
-    left: 45,
-    top: '125%',
-    fontSize: 18,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ADADAD',
-    paddingBottom: 10,
-    width: '80%'
-  },
-  BtnLogin: {
-    left: 45,
-    top: '15%',
-    alignSelf: 'left',
-    backgroundColor: '#ECBE00',
-    width: '80%',
-    padding: 5,
-    borderRadius: 50,
-  },
-  BtnLoginText: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 18,
-    top: 9
-  },
-  BtnRegText: {
-    color: '#ECBE00',
-    fontSize: 18,
-    top: 24,
-    left: 5
-  },
-
-  RegText: {
-    color: '#001B36',
-    textAlign: 'center',
-    textAlign: 'center',
-    fontSize: 18,
-    lineHeight: 22,
-    top: '150%'
-  },
-  LoginContainer: {
+  RegContainer: {
     flex: 1,
     flexDirection:'column',
   },
-  LoginAuthCont: {
-    backgroundColor: '#0053A9',
-    height: '55%',
-  },
-  LoginAuthContForm: {
+  RegScrollView: {
     backgroundColor: 'white',
     borderRadius: 37,
-    top: '-50%',
+    top: '-5%',
     width: '100%'
-
   },
-  // LoginImage: {
-  //   width: '100%',
-  //   opacity: '0.2',
-  //   zIndex: '-1',
-  //   position: 'relative'
-    
-  // },
-  LoginTitleText: {
+  RegAuthCont: {
+    backgroundColor: '#0053A9',
+    height: 300
+  },
+  RegMainTitleText: {
     fontFamily: 'mt-bold',
     fontWeight: 'bold',
     fontSize: 35,
     left: 45,
     color: 'white',
     top: '50%'
+  },
+  RegR: {
+    borderRadius: 37,
+  },
+  RegTitleText: {
+    fontSize: 18,
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    fontWeight: 'bold',
+    color: '#001B36',
+    lineHeight: '22',
+    left: 45,
+    fontFamily: 'mt-bold',
+  },
+  RegP5: {paddingTop: '5%'},
+  RegPlaceholderText: {
+    left: 45,
+    fontSize: 18,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ADADAD',
+    paddingBottom: 10,
+    width: '80%'
+  },
+  RegR: {
+    left: 45,
+    alignSelf: 'left',
+    backgroundColor: '#ECBE00',
+    width: '80%',
+    borderRadius: 37,
+    height: 50
+  },
+  RegAuth: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    textAlign: 'center',
+    top: 15
+  },
+  RegInfoText: {
+    color: '#ADADAD',
+    fontSize: 14,
+    left: 45,
+    fontWeight: '400',
+    textAlign: 'left',
+    paddingTop: '10%'
+  },
+  agreeText: {
+    paddingTop: '5%',
+    fontSize: 13,
+    lineHeight: 16,
+    left: 45,
+    width: '80%'
   },
 });
 
