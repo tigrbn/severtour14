@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './screens/LoginScreen';
+// import { StyleSheet } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Font from 'expo-font';
+import {AppLoading} from 'expo';
 import MainStack from './navigate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StartScreen from './screens/StartScreen';
 
 
-const Stack = createNativeStackNavigator()
+// const Stack = createNativeStackNavigator()
 
 export default function App() {
   // показывать, если пользователь открывает в первый (!) раз приложение
@@ -39,8 +40,8 @@ export default function App() {
 
 async function loadAppAplication() {
   await Font.loadAsync({
-    'mt-regular': require('./assets/fonts/Montserrat-Regular.ttf'),
-    'mt-bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+    'MontserratRegular': require('./assets/fonts/Montserrat-Regular.ttf'),
+    'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
   });
 }
 
@@ -61,3 +62,5 @@ export function fontsApp() {
     <MainScreen />
   );
 }
+
+

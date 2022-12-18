@@ -10,15 +10,18 @@ export default function LoginScreen( { navigation }) {
   const loadScene = () => {
     navigation.navigate('Register');
   }
+  //   const AddTourS = () => {
+  //     navigation.navigate('TourCategoriesScreen');
+  // }
     return (
 <SafeAreaView style={styles.LoginContainer}>
-    <View>
+    <View style={styles.AuthContForm}>
         <View style={styles.LoginAuthCont}>
             <Text style={styles.LoginTitleText}>
             Авторизация {'\n'} </Text>
         {/* <Image  style={styles.LoginImage} source={require('../assets/start_pic.png')} /> */}
         </View>
-        <KeyboardAvoidingView style={styles.AuthContForm}>
+        <KeyboardAvoidingView>
         <View style={styles.LoginAuthContForm}>
         <Text style={styles.LoginInfoText}> Войти по номеру {'\n'} телефона </Text>
         <TextInput placeholder='Введите номер телефона' style={styles.LoginPlaceholderText}/>
@@ -30,7 +33,7 @@ export default function LoginScreen( { navigation }) {
         <Text style={styles.BtnLoginText}>
             Войти {'\n'} </Text>
         </TouchableOpacity>
-        <View>
+        <View >
         <Text style={styles.RegText}>
         У Вас нет аккаунта? {'\n'}
 Зарегистрируйтесь 
@@ -44,13 +47,30 @@ export default function LoginScreen( { navigation }) {
             Войти {'\n'} </Text>
         </TouchableOpacity>
         </View>
+{/* 
+        <TouchableOpacity  onPress={AddTourS}>
+        <Text style={styles.BtnRegText}>
+        Добавить тур {'\n'} </Text>
+        
+        </TouchableOpacity> */}
      </View>
 </SafeAreaView>
 )
 }
 
 const styles = StyleSheet.create({
-
+  AuthContForm: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'white',
+    borderRadius: 37,
+    zIndex: 999
+  },
+  LoginAuthCont: {
+    backgroundColor: '#0053A9',
+    flex: 0.65,
+    zIndex: '-1'
+  },
   LoginInfoText: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -102,16 +122,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
   },
-  LoginAuthCont: {
-    backgroundColor: '#0053A9',
-    height: '55%',
-  },
   LoginAuthContForm: {
     backgroundColor: 'white',
     borderRadius: 37,
     top: '-50%',
     width: '100%'
-
   },
   // LoginImage: {
   //   width: '100%',
