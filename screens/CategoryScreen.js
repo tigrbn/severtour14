@@ -1,7 +1,5 @@
-
-
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
 import ToursScreen from './ToursScreen';
 
 const CategoryScreen = ({ route: { params }, navigation }) => {
@@ -22,7 +20,7 @@ const CategoryScreen = ({ route: { params }, navigation }) => {
       getCategories();
   }, []);   
   return (
-    <View style={{ padding: 20 }}>
+    <View style={styles.container} >
     {isLoading ? 
     <Text>Загрузка...</Text> :
     (
@@ -33,7 +31,7 @@ keyExtractor={({ id }) => id.toString()}
 renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => navigation.navigate('ToursScreen' , {paramKey: item.id} )}>
-          <Text>{`${item.title}`}
+          <Text style={styles.LinkText}>{`${item.title}`}
           </Text>
 
         </TouchableOpacity>
@@ -49,6 +47,25 @@ CategoryScreen.navigationOptions = {
     title: 'Category Details'
 };
 
+
+const styles = StyleSheet.create({
+  LinkText: {
+    fontSize: 22,
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    fontWeight: 'bold',
+    color: '#001B36',
+    lineHeight: '22',
+    left: 45,
+    right: 0,
+    width: '100%',
+  },
+  container: {
+    backgroundColor: 'white',
+    alignItems: 'left',
+    paddingTop: 10
+  },
+})
 
 export default CategoryScreen;
 

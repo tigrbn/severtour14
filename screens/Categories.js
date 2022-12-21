@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import CategoryScreen from './CategoryScreen';
 
 const Categories  = ({ navigation: { navigate } }) =>  {    
@@ -19,20 +19,18 @@ const Categories  = ({ navigation: { navigate } }) =>  {
     }, []);    
     return(
       
-        <View style={{ padding: 20 }}>
+        <View style={styles.container}  >
             {isLoading ? 
             <Text>Загрузка...</Text> :
             (
                 <View >
-      <FlatList
+      <FlatList 
         data={categories}
         keyExtractor={({ id }) => id.toString()}
         renderItem={({ item }) => (
-
-          
-          <TouchableOpacity
+          <TouchableOpacity 
             onPress={() => navigate('CategoryScreen', { id: item.id })}> 
-            <Text>{`${item.name}`}
+            <Text style={styles.LinkText}>{`${item.name}`}
             </Text>
 
           </TouchableOpacity>
@@ -43,5 +41,25 @@ const Categories  = ({ navigation: { navigate } }) =>  {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+  LinkText: {
+    fontSize: 22,
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    fontWeight: 'bold',
+    color: '#001B36',
+    lineHeight: '22',
+    left: 45,
+    right: 0,
+    width: '100%',
+  },
+  container: {
+    backgroundColor: 'white',
+    alignItems: 'left',
+    paddingTop: 10
+  },
+  
+});
 
 export default Categories;

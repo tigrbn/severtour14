@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import Categories from './Categories';
 
 const CategoryScreen = props => {
@@ -11,4 +10,6 @@ const CategoryScreen = props => {
 CategoryScreen.navigationOptions = {
     title: 'Category List'
 };
+
+  
 export default CategoryScreen;

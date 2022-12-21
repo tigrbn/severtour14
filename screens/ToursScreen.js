@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Image, Text, View, TouchableOpacity } from 'react-native';
 import CategoryScreen from './CategoryScreen';
 
 const ToursScreen = ({route}) =>{
@@ -13,7 +13,7 @@ const ToursScreen = ({route}) =>{
     .then((json) => {
       setData(json);
         console.log(json);
-        setImgAddress(json.images[0]);
+        // setImgAddress(json.images[0]);
     })
     .catch((error) => console.error(error))
     .finally(() => setLoading(false));
@@ -37,18 +37,38 @@ const ToursScreen = ({route}) =>{
   }, []);
 
   return (
-    <View>
+    <View  style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
          <View>
-         <Text>{data.title}</Text>
-         <Text >{data.description}</Text>
-         <Text>{data.type_id}</Text>
-         <Text>Название картинки: {imgAddress.image_name} </Text>
+         <Text style={styles.LinkText}>{data.title}</Text>
+         <Text style={styles.LinkText}>{data.description}</Text>
+         <Text style={styles.LinkText}>{data.type_id}</Text>
+         {/* <Image source={{uri: imgAddress.image_name}}/> */}
      </View>
         
       )}
     </View>
   );
 };
+
+
+const styles = StyleSheet.create({
+  LinkText: {
+    fontSize: 22,
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    fontWeight: 'bold',
+    color: '#001B36',
+    lineHeight: '22',
+    left: 45,
+    right: 0,
+    width: '100%',
+  },
+  container: {
+    backgroundColor: 'white',
+    alignItems: 'left',
+    paddingTop: 10
+  },
+})
 
 export default ToursScreen;
