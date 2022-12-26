@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
     color: '#001B36',
     lineHeight: '22',
     left: 45,
-    right: 0,
-    width: '100%',
+
+    width: 350,
   },
   container: {
     backgroundColor: 'white',
-    alignItems: 'left',
-    paddingTop: 10
+    height: '100%',
+    paddingTop: 10,
   },
 })
 

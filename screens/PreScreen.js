@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     color: '#001B36',
     lineHeight: '22',
     left: 45,
-    fontFamily: 'mt-bold',
   },
   container: {
     flex: 1,

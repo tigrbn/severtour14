@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { StyleSheet, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -40,6 +41,23 @@ function HomeStackScreen() {
 }
 
 export default function App() {
+  const screenOptions = {
+    unmountOnBlur: false,
+    // headerShown: false,
+    tabBarShowLabel: false,
+    tabBarStyle:{
+      position: 'absolute',
+      bottom: 35,
+      left: 20,
+      right: 20,
+      elevation: 0,
+      backgroundColor: '#fff',
+      borderRadius: 44,
+      height: 90, 
+      ...styles.shadow
+    },
+  };
+
   // показывать, если пользователь открывает в первый (!) раз приложение
   const [isFirstLaunch, setIsFirsLaunch] = React.useState(null);
   useEffect(() => {
@@ -61,26 +79,61 @@ export default function App() {
     );
   } else {
       return  <NavigationContainer>
-
-      <Tab.Navigator>
-  
-          <Tab.Screen   name="HomeStackScreen" component={HomeStackScreen} options={{
+      <Tab.Navigator {...{ screenOptions }}>
+          <Tab.Screen   
+            name="HomeStackScreen" 
+            component={HomeStackScreen} 
+            options={{
             tabBarIcon: ({focused}) => (
-              <HomeSvg width={30} height={30}></HomeSvg>
+             <View>
+              <Image
+              source={require('./assets/home.png')}
+              resizeMode="contain"
+              style={{
+                width: 35,
+                height: 35,
+                top: 15,
+                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
+              }}
+              />
+             </View>
             ), headerShown: false
           }} />
           <Tab.Screen name={main} component={MainScreen} options={{
             tabBarIcon: ({focused}) => (
-              <CategorySvg width={30} height={30}></CategorySvg>
+              <View>
+              <Image
+              source={require('./assets/personal.png')}
+              resizeMode="contain"
+              style={{
+                width: 35,
+                height: 35,
+                top: 15,
+                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
+              }}
+              />
+             </View>
             ), 
           }} />
           <Tab.Screen name={categoryList} component={CategoryList} options={{
             tabBarIcon: ({focused}) => (
-              <PersonalSvg width={30} height={30}></PersonalSvg>
-            ),
+              <View>
+              <Image
+              source={require('./assets/category.png')}
+              resizeMode="contain"
+              style={{
+                width: 45,
+                height: 45,
+                top: 15,
+                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
+              }}
+              />
+             </View>
+            ),  title: 'Категории'
           }} />
         </Tab.Navigator>
   </NavigationContainer>
+  
   }
 
 
@@ -89,28 +142,40 @@ export default function App() {
 }
 
 
-async function loadAppAplication() {
-  await Font.loadAsync({
-    'MontserratRegular': require('./assets/fonts/Montserrat-Regular.ttf'),
-    'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
-  });
-}
+// async function loadAppAplication() {
+//   await Font.loadAsync({
+//     'MontserratRegular': require('./assets/fonts/Montserrat-Regular.ttf'),
+//     'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+//   });
+// }
 
-export function fontsApp() {
-  const [isReady, setIsReady] = useState(false);
+// export function fontsApp() {
+//   const [isReady, setIsReady] = useState(false);
 
-  if (!isReady) {
-    return (
-      <AppLoading 
-        startAsync={loadAppAplication} 
-        onError={err => console.log(err)}
-        onFinish={() => setIsReady(true)}
-      />
-    )
-  }
+//   if (!isReady) {
+//     return (
+//       <AppLoading 
+//         startAsync={loadAppAplication} 
+//         onError={err => console.log(err)}
+//         onFinish={() => setIsReady(true)}
+//       />
+//     )
+//   }
 
-  return (
-    <MainStack />
-  );
-}
+//   return (
+//     <MainStack />
+//   );
+// }
 
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: '#0053A9',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    elevation: 5
+  },
+})

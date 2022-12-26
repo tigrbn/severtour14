@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     lineHeight: '22',
     left: 45,
     right: 0,
-    width: '100%',
+    width: 350,
   },
   container: {
     backgroundColor: 'white',
