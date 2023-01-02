@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Dimensions } from 'react-native'
-
+// import SvgUri from 'react-native-svg-uri-updated';
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View, FlatList } from 'react-native';
 import { Button } from 'react-native-paper';
 import { color, onChange } from 'react-native-reanimated';
@@ -16,22 +16,16 @@ import CategoryScreen from './CategoryScreen';
   const [imgAddress, setImgAddress] = useState([]);
   const [infoShedules, setInfoShedules] = useState([]);
   const [infoPackages, setInfoPackages] = useState([]);
-  const images = [
-    'http://194.36.191.166/storage/' + imgAddress.image_name,
-    'http://194.36.191.166/storage/' + imgAddress.image_name,
-      ]
-
-
   const id = route.params.paramKey;
   const getCategory = async () => {
     fetch('http://194.36.191.166/api/v1/tours/' + id + '/')
     .then((response) => response.json())
     .then((json) => {
       setData(json);
-        console.log(json);
-        setImgAddress(json.images[0]);
-        setInfoShedules(json.schedules[0]);
-        setInfoPackages(json.packages[0]);
+      setImgAddress(json.images);
+      setInfoShedules(json.schedules);
+      setInfoPackages(json.packages);
+      // console.log(json.images);
     })
     .catch((error) => console.error(error))
     .finally(() => setLoading(false));
@@ -41,44 +35,85 @@ import CategoryScreen from './CategoryScreen';
     getCategory();
   }, []);
  
-
+  // onChange = (nativeEvent) => {
+  //   if(nativeEvent) {
+  //     const slide = Math.ceil(native.contentOffset.x / nativeEvent.layoutMeasurement.width);
+  // if (slide != imgAddress) {
+  //         setImgAddress(slide);
+  //     }
+  //   }
+  // }
   return (
     <View  style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
              
-         <ScrollView style={styles.Scroll}  showsVerticalScrollIndicator={false}>
-     
-            
-            <SafeAreaView style={styles.Area}>
+         <ScrollView style={styles.Scroll}  showsVerticalScrollIndicator={false}>           
+            <SafeAreaView style={styles.Area}>           
               <ScrollView 
-              // onScroll={({nativeEvent}) => onChange(nativeEvent)}
-              showsHorizontalScrollIndicator={false}
-              pagingEnabled
-              horizontal
-              style={styles.wrap}>
-                {
-                  images.map((e, index) =>
-                  <Image 
-                  key={e}
-                  resizeMode='stretch'
-                  style={styles.wrap}
-                  source={{uri: e}}
-                  />
-                  )
-                }
+              onScroll={({nativeEvent}) => onChange(nativeEvent)}>
+                  <FlatList 
+                    data={imgAddress}
+                    showsHorizontalScrollIndicator={false}
+                    pagingEnabled
+                    horizontal
+                    style={styles.wrap}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+                        <Image 
+                      resizeMode='stretch'
+                      style={styles.wrap}
+                      source={{uri: 'http://194.36.191.166/storage/' + item.image_name}}
+                      />)}/>
               </ScrollView>
-
-              {/* <View style={styles.wrapDot}>
+              {/* <View style={styles.wrapDot}>               
                 {
-                  images.map((e, index) => 
+                  imgAddress.map((e, index) => 
                   <Text 
                   key={e} 
-                  style={imgActive == index ? styles.dotActive : styles.dot}>
+                  style={imgAddress == index ? styles.dotActive : styles.dot}>
                     ●
                   </Text>)
                 }
               </View> */}
-              
+              <FlatList 
+                    data={infoShedules}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+                    <Text style={styles.LinkText}>{`${item.price/1}`}</Text>)}/>
+              <FlatList 
+                    data={infoShedules}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+                    <Text style={styles.LinkText}>{`${item.startdate}`}</Text>)}/>
+              <FlatList 
+                    data={infoShedules}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+                    <Text style={styles.LinkText}>{`${item.enddate}`}</Text>)}/>
+              <FlatList 
+                    data={infoShedules}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+                    <Text style={styles.LinkText}>{`${item.space_total}`}</Text>)}/>
+              <FlatList 
+                    data={infoShedules}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+                    <Text style={styles.LinkText}>{`${item.space_current}`}</Text>)}/>
+               <FlatList 
+                    data={infoPackages}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+                    <Text style={styles.LinkText}>{`${item.name}`}</Text>)}/>
+              {/* <FlatList 
+                    data={infoPackages}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => (
+               <SvgUri
+                      width="200"
+                      height="200"
+                      source={{ uri: 'http://194.36.191.166/storage/' + item.icon }} 
+                    /> )}/> */}
               <Text style={styles.LinkText_}>Название</Text>
               <Text style={styles.LinkText}>{data.title}</Text>
               <Text style={styles.LinkText_}>Размещение:</Text>
@@ -88,13 +123,16 @@ import CategoryScreen from './CategoryScreen';
               <Text style={styles.LinkText_}>Описание:</Text>
               <Text style={styles.LinkText__}>{data.description}</Text>
               <View style={styles.price_container}>
+              
               <Text style={styles.price}>{infoShedules.price} ₽ {'\n'}
               <Text style={styles.price_text}>с человека</Text>
               </Text>
+
               <Button style={styles.zabron}>
               <Text style={styles.zabron_text}>
               Забронировать</Text></Button>
               </View>
+              
             </SafeAreaView>
      </ScrollView>
         
@@ -195,26 +233,26 @@ const styles = StyleSheet.create({
     },
     wrap: {
       width: WIDTH,
-      height: HEIGHT * 0.35,
+      height: 300,
       position: 'fixed',
       top: 0,
       left: 0,
       right: 0
     },
-    // wrapDot: {
-    //   position: 'absolute',
+    wrapDot: {
+      position: 'absolute',
     
-    //   flexDirection: 'row',
-    //   alignSelf: 'center'
-    // },
-    // dotActive: {
-    //   margin: 3,
-    //   color: 'black'
-    // },
-    // dot: {
-    //   margin: 3,
-    //   color: 'white'
-    // }
+      flexDirection: 'row',
+      alignSelf: 'center'
+    },
+    dotActive: {
+      margin: 3,
+      color: 'black'
+    },
+    dot: {
+      margin: 3,
+      color: 'white'
+    }
 })
 
 export default ToursScreen;
