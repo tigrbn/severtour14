@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     paddingBottom: '5%',
     fontWeight: 'bold',
     color: '#001B36',
-    lineHeight: '22',
+    lineHeight: 22,
     left: 45,
     fontFamily: 'mt-bold',
   },
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   RegR: {
     left: 45,
-    alignSelf: 'left',
+    alignSelf: 'flex-start',
     backgroundColor: '#ECBE00',
     width: '80%',
     borderRadius: 37,

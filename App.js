@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Font from 'expo-font';
-import {AppLoading} from 'expo';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import PreScreen from './screens/PreScreen';
-import HomeSvg from './assets/home.svg';
-import CategorySvg from './assets/category.svg';
-import PersonalSvg from './assets/personal.svg';
-import MainScreen from './screens/MainScreen';
-import CategoryList from './screens/CategoryList';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import AddTourScreen from './screens/AddTourScreen';
-import ToursScreen from './screens/ToursScreen';
+import React, { useEffect } from "react";
+import { StyleSheet, View, Image } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import PreScreen from "./screens/PreScreen";
+import HomeSvg from "./assets/home.svg";
+import CategorySvg from "./assets/category.svg";
+import PersonalSvg from "./assets/personal.svg";
+import MainScreen from "./screens/MainScreen";
+import StartScreen from "./screens/MainScreen";
+import CategoryList from "./screens/CategoryList";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import AddTourScreen from "./screens/AddTourScreen";
+import ToursScreen from "./screens/ToursScreen";
 
-import Null from './screens/Null';
-import CategoryScreen from './screens/CategoryScreen';
+import Null from "./screens/Null";
+import CategoryScreen from "./screens/CategoryScreen";
 
 const Stack = createNativeStackNavigator();
 const main = "MainScreen";
@@ -26,18 +27,19 @@ const categoryList = "CategoryList";
 const Tab = createBottomTabNavigator();
 
 function HomeStackScreen() {
-  return <Stack.Navigator>
-    <Stack.Screen name="PreScreen" component={PreScreen}/>
-    <Stack.Screen name="Login" component={LoginScreen}/>
-    <Stack.Screen name="Register" component={RegisterScreen} />
-    <Stack.Screen name="Main" component={MainScreen} />
-    <Stack.Screen name="AddTour" component={AddTourScreen} />
-    <Stack.Screen name="Null" component={Null} />
-    <Stack.Screen name="CategoryList" component={CategoryList} />
-    <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
-    <Stack.Screen name="ToursScreen" component={ToursScreen} />
-  </Stack.Navigator>
-
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="PreScreen" component={PreScreen} options={{ title: "Демо меню" }}/>
+      <Stack.Screen name="Login" component={LoginScreen} options={{ title: "Авторизация" }}/>
+      <Stack.Screen name="Register" component={RegisterScreen} options={{ title: "Регистрация" }}/>
+      <Stack.Screen name="Main" component={MainScreen} options={{ title: "Главная" }}/>
+      <Stack.Screen name="AddTour" component={AddTourScreen} options={{ title: "Добавить тур" }}/>
+      <Stack.Screen name="Null" component={Null} options={{ title: "Стартовая страница" }}/>
+      <Stack.Screen name="CategoryList" component={CategoryList} options={{ title: "Категории" }}/>
+      <Stack.Screen name="CategoryScreen" component={CategoryScreen} options={({ route }) => ({ title: route.params.name })}/>
+      <Stack.Screen name="ToursScreen" component={ToursScreen} options={({ route }) => ({ title: route.params.name })}/>
+    </Stack.Navigator>
+  );
 }
 
 export default function App() {
@@ -45,25 +47,22 @@ export default function App() {
     unmountOnBlur: false,
     // headerShown: false,
     tabBarShowLabel: false,
-    tabBarStyle:{
-      position: 'absolute',
-      bottom: 35,
-      left: 20,
-      right: 20,
+    tabBarStyle: {
       elevation: 0,
-      backgroundColor: '#fff',
-      borderRadius: 44,
-      height: 90, 
-      ...styles.shadow
+      backgroundColor: "#fff",
+      height: 60,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+      ...styles.shadow,
     },
   };
 
   // показывать, если пользователь открывает в первый (!) раз приложение
   const [isFirstLaunch, setIsFirsLaunch] = React.useState(null);
   useEffect(() => {
-    AsyncStorage.getItem('alreadyLaunched').then(value => {
-      if(value == null) {
-        AsyncStorage.setItem('alreadyLaunched', 'true');
+    AsyncStorage.getItem("alreadyLaunched").then((value) => {
+      if (value == null) {
+        AsyncStorage.setItem("alreadyLaunched", "true");
         setIsFirsLaunch(true);
       } else {
         setIsFirsLaunch(false);
@@ -74,73 +73,76 @@ export default function App() {
   if (isFirstLaunch === null) {
     return null;
   } else if (isFirstLaunch === true) {
-    return (
-      <StartScreen/>
-    );
+    return <StartScreen />;
   } else {
-      return  <NavigationContainer>
-      <Tab.Navigator {...{ screenOptions }}>
-          <Tab.Screen   
-            name="HomeStackScreen" 
-            component={HomeStackScreen} 
+    return (
+      <NavigationContainer 
+      >
+        <Tab.Navigator {...{ screenOptions }}>
+          <Tab.Screen
+            name="HomeStackScreen"
+            component={HomeStackScreen}
             options={{
-            tabBarIcon: ({focused}) => (
-             <View>
-              <Image
-              source={require('./assets/home.png')}
-              resizeMode="contain"
-              style={{
-                width: 35,
-                height: 35,
-                top: 15,
-                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
-              }}
-              />
-             </View>
-            ), headerShown: false
-          }} />
-          <Tab.Screen name={main} component={MainScreen} options={{
-            tabBarIcon: ({focused}) => (
-              <View>
-              <Image
-              source={require('./assets/personal.png')}
-              resizeMode="contain"
-              style={{
-                width: 35,
-                height: 35,
-                top: 15,
-                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
-              }}
-              />
-             </View>
-            ), 
-          }} />
-          <Tab.Screen name={categoryList} component={CategoryList} options={{
-            tabBarIcon: ({focused}) => (
-              <View>
-              <Image
-              source={require('./assets/category.png')}
-              resizeMode="contain"
-              style={{
-                width: 45,
-                height: 45,
-                top: 15,
-                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
-              }}
-              />
-             </View>
-            ),  title: 'Категории'
-          }} />
+              tabBarIcon: ({ focused }) => (
+                <View>
+                  <Image
+                    source={require("./assets/home.png")}
+                    resizeMode="contain"
+                    style={{
+                      width: 35,
+                      height: 35,
+                      tintColor: focused ? "#0053A9" : "rgba(0, 83, 169, 0.5)",
+                    }}
+                  />
+                </View>
+              ),
+              headerShown: false,
+            }}
+          />
+          <Tab.Screen
+            name={main}
+            component={MainScreen}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View>
+                  <Image
+                    source={require("./assets/personal.png")}
+                    resizeMode="contain"
+                    style={{
+                      width: 35,
+                      height: 35,
+                      tintColor: focused ? "#0053A9" : "rgba(0, 83, 169, 0.5)",
+                    }}
+                  />
+                </View>
+              ),
+            }}
+          />
+          <Tab.Screen
+            name={categoryList}
+            component={CategoryList}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View>
+                  <Image
+                    source={require("./assets/category.png")}
+                    resizeMode="contain"
+                    style={{
+                      width: 45,
+                      height: 45,
+                      tintColor: focused ? "#0053A9" : "rgba(0, 83, 169, 0.5)",
+                    }}
+                  />
+                </View>
+              ),
+              title: "Категории",
+            }}
+          />
         </Tab.Navigator>
-  </NavigationContainer>
-  
+      </NavigationContainer>
+    );
   }
-
-
-
-  
 }
-
 
 // async function loadAppAplication() {
 //   await Font.loadAsync({
@@ -154,8 +156,8 @@ export default function App() {
 
 //   if (!isReady) {
 //     return (
-//       <AppLoading 
-//         startAsync={loadAppAplication} 
+//       <AppLoading
+//         startAsync={loadAppAplication}
 //         onError={err => console.log(err)}
 //         onFinish={() => setIsReady(true)}
 //       />
@@ -169,13 +171,13 @@ export default function App() {
 
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: '#0053A9',
+    shadowColor: "#0053A9",
     shadowOffset: {
       width: 0,
       height: 10,
     },
     shadowOpacity: 0.25,
     shadowRadius: 5,
-    elevation: 5
+    elevation: 5,
   },
-})
+});

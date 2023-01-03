@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
   LoginAuthCont: {
     backgroundColor: '#0053A9',
     flex: 0.65,
-    zIndex: '-1'
+    zIndex: -1
   },
   LoginInfoText: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#001B36',
-    lineHeight: '27',
+    lineHeight: 27,
     left: 40,
     top: '100%',
     fontFamily: 'mt-bold',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   BtnLogin: {
     left: 45,
     top: '15%',
-    alignSelf: 'left',
+    alignSelf: 'flex-start',
     backgroundColor: '#ECBE00',
     width: '80%',
     padding: 5,

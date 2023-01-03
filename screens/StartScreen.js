@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     fontFamily: 'mt-regular',
     backgroundColor: '#0053A9',
-    borderRadius: '25',
+    borderRadius: 25,
     width: 180,
     height: 50,
     justifyContent: 'center',

@@ -30,7 +30,7 @@ data={categories}
 keyExtractor={({ id }) => id.toString()}
 renderItem={({ item }) => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('ToursScreen' , {paramKey: item.id} )}>
+          onPress={() => navigation.navigate('ToursScreen' , {paramKey: item.id, name: item.title} )}>
           <Text style={styles.LinkText}>{`${item.title}`}
           </Text>
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     paddingBottom: '5%',
     fontWeight: 'bold',
     color: '#001B36',
-    lineHeight: '22',
+    lineHeight: 22,
     left: 45,
 
     width: 350,

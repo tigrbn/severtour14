@@ -29,7 +29,7 @@ const Categories  = ({ navigation: { navigate } }) =>  {
         keyExtractor={({ id }) => id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity 
-            onPress={() => navigate('CategoryScreen', { id: item.id })}> 
+            onPress={() => navigate('CategoryScreen', { id: item.id, name: item.name})}> 
             <Text style={styles.LinkText}>{`${item.name}`}
             </Text>
 
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
     paddingBottom: '5%',
     fontWeight: 'bold',
     color: '#001B36',
-    lineHeight: '22',
+    lineHeight: 22,
     left: 45,
     right: 0,
     width: 350,
   },
   container: {
     backgroundColor: 'white',
-    alignItems: 'left',
+    alignItems: 'flex-start',
     paddingTop: 10
   },
   
