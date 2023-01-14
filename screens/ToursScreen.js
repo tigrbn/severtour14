@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Dimensions } from 'react-native'
 // import SvgUri from 'react-native-svg-uri-updated';
@@ -75,12 +76,14 @@ import CategoryScreen from './CategoryScreen';
                   </Text>)
                 }
               </View> */}
+              <View  style={styles.whitePanel}>
+              <Text style={styles.categoryTitle}>{data.title}</Text>
               <FlatList 
                     data={infoShedules}
                     keyExtractor={({ id }) => id.toString()}
                     renderItem={({ item }) => (
                     <Text style={styles.LinkText}>{`${item.price/1}`}</Text>)}/>
-              <FlatList 
+              {/* <FlatList 
                     data={infoShedules}
                     keyExtractor={({ id }) => id.toString()}
                     renderItem={({ item }) => (
@@ -89,12 +92,12 @@ import CategoryScreen from './CategoryScreen';
                     data={infoShedules}
                     keyExtractor={({ id }) => id.toString()}
                     renderItem={({ item }) => (
-                    <Text style={styles.LinkText}>{`${item.enddate}`}</Text>)}/>
-              <FlatList 
+                    <Text style={styles.LinkText}>{`${item.enddate}`}</Text>)}/> */}
+              {/* <FlatList 
                     data={infoShedules}
                     keyExtractor={({ id }) => id.toString()}
                     renderItem={({ item }) => (
-                    <Text style={styles.LinkText}>{`${item.space_total}`}</Text>)}/>
+                    <Text style={styles.LinkText}>{`${item.space_total}`}</Text>)}/> */}
               <FlatList 
                     data={infoShedules}
                     keyExtractor={({ id }) => id.toString()}
@@ -114,8 +117,6 @@ import CategoryScreen from './CategoryScreen';
                       height="200"
                       source={{ uri: 'http://194.36.191.166/storage/' + item.icon }} 
                     /> )}/> */}
-              <Text style={styles.LinkText_}>Название</Text>
-              <Text style={styles.LinkText}>{data.title}</Text>
               <Text style={styles.LinkText_}>Размещение:</Text>
               <Text style={styles.LinkText}>{data.accommodation}</Text>
               <Text style={styles.LinkText_}>Место сбора:</Text>
@@ -132,6 +133,7 @@ import CategoryScreen from './CategoryScreen';
               <Text style={styles.zabron_text}>
               Забронировать</Text></Button>
               </View>
+              </View>
               
             </SafeAreaView>
      </ScrollView>
@@ -145,6 +147,20 @@ import CategoryScreen from './CategoryScreen';
 };
 
 const styles = StyleSheet.create({
+  whitePanel: {
+    backgroundColor: 'white',
+    borderRadius: 37,
+    top: '-2.5%'
+  },
+  categoryTitle: {
+    color: '#00274E',
+    fontWeight: '700',
+    fontSize: 24,
+    lineHeight: 29,
+    marginLeft: 45,
+    marginTop: 45,
+    width: '80%'
+  },
   LinkText: {
     fontSize: 20,
     paddingTop: '5%',
@@ -256,3 +272,5 @@ const styles = StyleSheet.create({
 })
 
 export default ToursScreen;
+=======
+>>>>>>> master

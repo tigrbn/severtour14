@@ -45,9 +45,9 @@ return (
         <Text onPress={loadScene4} style={styles.LinkText}>
         Категории туров
         </Text>
-        <Text onPress={loadScene5} style={styles.LinkText}>
+        {/* <Text onPress={loadScene5} style={styles.LinkText}>
         Добавить тур
-        </Text>
+        </Text> */}
 </TouchableOpacity>
         
 
@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
     paddingBottom: '5%',
     fontWeight: 'bold',
     color: '#001B36',
-    lineHeight: '22',
+    lineHeight: 22,
     left: 45,
   },
   container: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    alignItems: 'left',
+    alignItems: 'flex-start',
     paddingTop: 10
   },
   
