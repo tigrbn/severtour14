@@ -25,10 +25,11 @@ const CategoryScreen = ({ route: { params }, navigation }) => {
     <Text>Загрузка...</Text> :
     (
         <View >
-<FlatList
-data={categories}
-keyExtractor={({ id }) => id.toString()}
-renderItem={({ item }) => (
+        <FlatList
+          style={styles.catItems}
+          data={categories}
+          keyExtractor={({ id }) => id.toString()}
+          renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => navigation.navigate('ToursScreen' , {paramKey: item.id, name: item.title} )}>
           <Text style={styles.LinkText}>{`${item.title}`}
@@ -51,14 +52,16 @@ CategoryScreen.navigationOptions = {
 const styles = StyleSheet.create({
   LinkText: {
     fontSize: 22,
-    paddingTop: '10%',
+    paddingTop: '5%',
     paddingBottom: '5%',
     fontWeight: 'bold',
     color: '#001B36',
     lineHeight: 22,
     left: 45,
-
     width: 350,
+  },
+  catItems: {
+    marginTop: '15%'
   },
   container: {
     backgroundColor: 'white',

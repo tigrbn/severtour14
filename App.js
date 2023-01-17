@@ -28,11 +28,11 @@ const Tab = createBottomTabNavigator();
 
 function HomeStackScreen() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="PreScreen" component={PreScreen} options={{ title: "Демо меню" }}/>
+    <Stack.Navigator  screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Main" component={MainScreen} options={{ title: "Главная" }}/>
+      {/* <Stack.Screen name="PreScreen" component={PreScreen} options={{ title: "Демо меню" }}/> */}
       <Stack.Screen name="Login" component={LoginScreen} options={{ title: "Авторизация" }}/>
       <Stack.Screen name="Register" component={RegisterScreen} options={{ title: "Регистрация" }}/>
-      <Stack.Screen name="Main" component={MainScreen} options={{ title: "Главная" }}/>
       <Stack.Screen name="AddTour" component={AddTourScreen} options={{ title: "Добавить тур" }}/>
       <Stack.Screen name="Null" component={Null} options={{ title: "Стартовая страница" }}/>
       <Stack.Screen name="CategoryList" component={CategoryList} options={{ title: "Категории" }}/>
@@ -50,7 +50,7 @@ export default function App() {
     tabBarStyle: {
       elevation: 0,
       backgroundColor: "#fff",
-      height: 60,
+      height: 100,
       borderTopLeftRadius: 10,
       borderTopRightRadius: 10,
       ...styles.shadow,
@@ -83,9 +83,19 @@ export default function App() {
             name="HomeStackScreen"
             component={HomeStackScreen}
             options={{
+              headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <View>
-                  <Image
+                  {/* <Image
+                    source={require("./assets/personal.png")}
+                    resizeMode="contain"
+                    style={{
+                      width: 35,
+                      height: 35,
+                      tintColor: focused ? "#0053A9" : "rgba(0, 83, 169, 0.5)",
+                    }}
+                  /> */}
+                               <Image
                     source={require("./assets/home.png")}
                     resizeMode="contain"
                     style={{
@@ -99,66 +109,15 @@ export default function App() {
               headerShown: false,
             }}
           />
-          <Tab.Screen
+          {/* <Tab.Screen
             name={main}
             component={MainScreen}
             options={{
-<<<<<<< HEAD
-            headerShown: false,
-            tabBarIcon: ({focused}) => (
-             <View>
-               <Image
-              source={require('./assets/personal.png')}
-              resizeMode="contain"
-              style={{
-                width: 35,
-                height: 35,
-                top: 15,
-                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
-              }}
-              />
-             </View>
-            ), headerShown: false
-          }} />
-          <Tab.Screen name={main} component={MainScreen} options={{
-            headerShown: false,
-            tabBarIcon: ({focused}) => (
-              <View>
-              <Image
-              source={require('./assets/home.png')}
-              resizeMode="contain"
-              style={{
-                width: 35,
-                height: 35,
-                top: 15,
-                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
-              }}
-              />
-             </View>
-            ), 
-          }} />
-          <Tab.Screen name={categoryList} component={CategoryList} options={{
-            headerShown: false,
-            tabBarIcon: ({focused}) => (
-              <View>
-              <Image
-              source={require('./assets/category.png')}
-              resizeMode="contain"
-              style={{
-                width: 45,
-                height: 45,
-                top: 15,
-                tintColor: focused ? '#0053A9' : 'rgba(0, 83, 169, 0.5)'
-              }}
-              />
-             </View>
-            ),  title: 'Категории'
-          }} />
-=======
+              headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <View>
-                  <Image
-                    source={require("./assets/personal.png")}
+              <Image
+                    source={require("./assets/home.png")}
                     resizeMode="contain"
                     style={{
                       width: 35,
@@ -169,11 +128,12 @@ export default function App() {
                 </View>
               ),
             }}
-          />
+          /> */}
           <Tab.Screen
             name={categoryList}
             component={CategoryList}
             options={{
+              headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <View>
                   <Image
@@ -190,7 +150,6 @@ export default function App() {
               title: "Категории",
             }}
           />
->>>>>>> master
         </Tab.Navigator>
       </NavigationContainer>
     );

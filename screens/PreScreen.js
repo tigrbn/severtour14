@@ -59,7 +59,7 @@ return (
 const styles = StyleSheet.create({
   LinkText: {
     fontSize: 18,
-    paddingTop: '10%',
+    paddingTop: '5%',
     paddingBottom: '5%',
     fontWeight: 'bold',
     color: '#001B36',

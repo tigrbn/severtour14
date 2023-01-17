@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import CategoryScreen from './CategoryScreen';
+
+
 
 const Categories  = ({ navigation: { navigate } }) =>  {    
     const [isLoading, setLoading] = useState(false);
@@ -11,14 +13,12 @@ const Categories  = ({ navigation: { navigate } }) =>  {
           .then((json) => setCategories(json))
           .catch((error) => console.error(error))
           .finally(() => setLoading(false));
-          
     }    
     useEffect(() => {
         setLoading(true);
         getCategories();
     }, []);    
     return(
-      
         <View style={styles.container}  >
             {isLoading ? 
             <Text>Загрузка...</Text> :
@@ -26,6 +26,7 @@ const Categories  = ({ navigation: { navigate } }) =>  {
                 <View >
       <FlatList 
         data={categories}
+        style={styles.catItems}
         keyExtractor={({ id }) => id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity 
@@ -45,7 +46,7 @@ const Categories  = ({ navigation: { navigate } }) =>  {
 const styles = StyleSheet.create({
   LinkText: {
     fontSize: 22,
-    paddingTop: '10%',
+    paddingTop: '5%',
     paddingBottom: '5%',
     fontWeight: 'bold',
     color: '#001B36',
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
     left: 45,
     right: 0,
     width: 350,
+  },
+  catItems: {
+    marginTop: '15%'
   },
   container: {
     backgroundColor: 'white',

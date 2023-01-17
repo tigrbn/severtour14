@@ -1,5 +1,5 @@
 import React , { useEffect, useState } from 'react';
-import { StyleSheet, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, Button } from 'react-native';
 
 import { Card } from 'react-native-paper';
 import { DefaultTheme } from 'react-native-paper';
@@ -8,12 +8,10 @@ import { Text, FlatList, TouchableOpacity } from 'react-native';
 import ToursScreen from './ToursScreen';
 import CategoryScreen from './CategoryScreen';
 
-
 const WIDTH = Dimensions.get('window').width;
 const numColumns = 2.2;
 const tileSize = WIDTH / numColumns;
 const HEIGHT = Dimensions.get('window').height;
-
 const MainScreen  = ({ navigation}) =>  {    
   const loadScene = () => {
     navigation.navigate('CategoryList');
@@ -26,7 +24,6 @@ const MainScreen  = ({ navigation}) =>  {
         .then((json) => setCategories(json.data))
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
-        
   }    
   useEffect(() => {
       setLoading(true);
@@ -40,10 +37,10 @@ const MainScreen  = ({ navigation}) =>  {
           <Text>Загрузка...</Text> :
           (
   <View style={styles.MainContainer}> 
-          <Image style={styles.categoryImg} onPress={loadScene} source={require('../assets/category.png')}/>
+   <TouchableOpacity onPress={loadScene}><Image style={styles.categoryImg} source={require('../assets/category.png')}/></TouchableOpacity>
           <FlatList 
             data={categories}
-            showsHorizontalScrollIndicator={false}
+            showsHorizontalScrollIndicator={true}
             pagingEnabled
             horizontal
             style={styles.wrap}
@@ -93,7 +90,7 @@ const MainScreen  = ({ navigation}) =>  {
 const styles = StyleSheet.create({
   categoryImg: {
     marginTop: 60,
-    marginLeft: 10,
+    marginLeft: 20,
     marginBottom: 30
   },
   Panelslider: {
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     marginRight: 20,
     position:'absolute',
-    bottom: 15,
+    bottom: 0,
     right: 0,
     left: 0,
   },
@@ -126,8 +123,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 22,
     fontWeight: 'bold',
-    left: 10,
-    top: 10,
+    marginLeft: 10,
+    marginTop: 30,
+    marginBottom: 10
   },
   linkText: {
     color: '#00274E',
@@ -136,7 +134,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     position: 'absolute',
     right: 10,
-    top: 10,
+    top: 30,
   },
   MainContainer: {
 
@@ -146,12 +144,11 @@ const styles = StyleSheet.create({
     position: 'relative',
     paddingRight: 20,
     borderRadius: 10,
-    // height: HEIGHT,
+    height: HEIGHT/3.2,
     // alignSelf: 'flex-start'
   },
   img: {
-
-    height: 300,
+    height: 250,
     position: 'relative',
     borderRadius: 19,
   },
