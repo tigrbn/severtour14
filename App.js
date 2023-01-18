@@ -129,7 +129,7 @@ export default function App() {
               ),
             }}
           /> */}
-          <Tab.Screen
+          {/* <Tab.Screen
             name={categoryList}
             component={CategoryList}
             options={{
@@ -149,7 +149,7 @@ export default function App() {
               ),
               title: "Категории",
             }}
-          />
+          /> */}
         </Tab.Navigator>
       </NavigationContainer>
     );

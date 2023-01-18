@@ -18,6 +18,7 @@ const MainScreen  = ({ navigation}) =>  {
   }
   const [isLoading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);    
+  const [banners, setBann] = useState([]);    
   getCategories = () => {
       fetch('http://194.36.191.166/api/v1/tours/')
         .then((response) => response.json())
@@ -25,10 +26,18 @@ const MainScreen  = ({ navigation}) =>  {
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
   }    
+  getBanners = () => {
+    fetch('http://194.36.191.166/api/v1/banners/')
+      .then((response) => response.json())
+      .then((json) => setBann(json.banners))
+      
+      .catch((error) => console.error(error))
+      // console.log(json.images);
+}    
   useEffect(() => {
       setLoading(true);
       getCategories();
-      
+      getBanners();
   }, []);    
   return(
     
@@ -39,7 +48,7 @@ const MainScreen  = ({ navigation}) =>  {
   <View style={styles.MainContainer}> 
    <TouchableOpacity onPress={loadScene}><Image style={styles.categoryImg} source={require('../assets/category.png')}/></TouchableOpacity>
           <FlatList 
-            data={categories}
+            data={banners}
             showsHorizontalScrollIndicator={true}
             pagingEnabled
             horizontal

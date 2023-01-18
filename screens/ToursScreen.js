@@ -4,7 +4,7 @@ import { Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native'
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View, FlatList } from 'react-native';
 import { Button } from 'react-native-paper';
 import { color, onChange } from 'react-native-reanimated';
-
+import mapPng from "../assets/map.png"
 
   const WIDTH = Dimensions.get('window').width;
   const HEIGHT = Dimensions.get('window').height;
@@ -15,6 +15,40 @@ import { color, onChange } from 'react-native-reanimated';
   const [infoShedules, setInfoShedules] = useState([]);
   const [infoPackages, setInfoPackages] = useState([]);
   const id = route.params.paramKey;
+  const dnyaText = <Text>дня</Text>;
+  const dneyText = <Text>дней</Text>;
+  let textDay;
+  if (infoShedules.dateForHumans==0) {
+      
+  }
+  else if (infoShedules.dateForHumans>5) {
+      textDay = dneyText
+  }
+  else  {
+      textDay = dnyaText
+  }
+
+  const chasovText = <Text>часов</Text>;
+  const chasaText = <Text>часа</Text>;
+  const chasText = <Text>час</Text>;
+  
+  let textHourse;
+  if (infoShedules.hoursForHumans==1 && infoShedules.dateForHumans<1) {
+    textHourse = chasText
+  }
+  else if (infoShedules.hoursForHumans<5 && infoShedules.dateForHumans<1) {
+    textHourse = chasaText
+  }
+  else if (infoShedules.hoursForHumans>6 && infoShedules.dateForHumans<1 ) {
+    textHourse = chasovText
+  }
+
+  if ( infoShedules.dateForHumans<1) {
+    infoShedules.dateForHumans = ''
+  }
+  if ( infoShedules.dateForHumans>1) {
+    infoShedules.hoursForHumans = '' 
+  }
 
 
   const getCategory = async () => {
@@ -49,28 +83,35 @@ import { color, onChange } from 'react-native-reanimated';
                     style={styles.wrap}
                     keyExtractor={({ id }) => id.toString()}
                     renderItem={({ item }) => (
-                        <Image 
+                  <Image 
                       resizeMode='stretch'
                       style={styles.wrap}
                       source={{uri: 'http://194.36.191.166/storage/' + item.image_name}}
-                      />)}/>
+                  />)}/>
               </ScrollView>
               <View  style={styles.whitePanel}>
               <Text style={styles.categoryTitle}>{data.title}</Text>
+              <Text style={styles.LinkText_location}>
+              <Image  resizeMode='cover' source={require("../assets/map.png")} style={styles.mapPng}/> 
+               {data.location}</Text>
+               <Text style={styles.dataTitle}>
+              <Image  resizeMode='cover' source={require("../assets/clock.png")} style={styles.mapPng}/> 
+                {infoShedules.dateForHumans} {textDay}{infoShedules.hoursForHumans} {textHourse}
+                </Text>
               <Text style={styles.LinkText_}>Размер группы</Text>
               <Text style={styles.LinkText}>До {infoShedules.space_current} человек</Text>
               <Text style={styles.LinkText_}>Размещение:</Text>
               <Text style={styles.LinkText}>{data.accommodation}</Text>
               <Text style={styles.LinkText_}>Место сбора:</Text>
-              <Text style={styles.LinkText}>{data.place}</Text>
+              <Text style={styles.LinkText}>{infoShedules.meet_place}</Text>
               <Text style={styles.LinkText_}>Описание:</Text>
               <Text style={styles.LinkText__}>{data.description}</Text>
               <View style={styles.price_container}>
               <Text style={styles.price}>{infoShedules.price/1} ₽ {'\n'}
               <Text style={styles.price_text}>с человека</Text></Text>
-              <Button style={styles.zabron}>
+              <TouchableOpacity style={styles.zabron}>
               <Text style={styles.zabron_text}>
-              Забронировать</Text></Button>
+              Забронировать</Text></TouchableOpacity>
               </View>
               </View>  
             </SafeAreaView>
@@ -94,7 +135,7 @@ const styles = StyleSheet.create({
     lineHeight: 29,
     marginLeft: 45,
     marginTop: 45,
-    width: '80%'
+    width: '85%'
   },
   LinkText: {
     fontSize: 20,
@@ -105,9 +146,28 @@ const styles = StyleSheet.create({
     right: 0,
     width: 350,
   },
-    LinkText_: {
+  LinkText_location: {
+    fontSize: 20,
+    color: '#001B36',
+    marginLeft: 45,
+    paddingLeft: 10,
+    marginTop: 25
+  },
+  mapPng: {
+    width: 25,
+    height: 25,
+    tintColor: "#00274E",
+  },
+  dataTitle: {
+      color: '#001B36',
+      fontSize: 20,
+      paddingLeft: 10,
+      marginLeft: 45,
+      marginTop: 20
+  },
+  LinkText_: {
       fontSize: 22,
-      paddingTop: '10%',
+      marginTop: 30,
       fontWeight: 'bold',
       color: '#001B36',
       lineHeight: '22',
@@ -122,13 +182,13 @@ const styles = StyleSheet.create({
       marginLeft: '5%',
       color: 'white',
       borderRadius: 28,
-      padding: 10,
+      padding: 15,
     },
     zabron_text: {
       color: 'white',
       textTransform: 'capitalize',
       fontWeight: 'bold',
-      fontSize: 18,
+      fontSize: 16,
     },
     LinkText__: {
       fontSize: 22,
@@ -188,7 +248,8 @@ const styles = StyleSheet.create({
     dot: {
       margin: 3,
       color: 'white'
-    }
+    },
+    
 })
 
 export default ToursScreen;
